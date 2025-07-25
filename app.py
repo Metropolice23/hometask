@@ -1,5 +1,10 @@
 from flask import Flask, jsonify
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create Flask app
 app = Flask(__name__)
@@ -32,7 +37,7 @@ def api_message():
             "description": "This is a simple API returning static messages",
             "endpoints": [
                 "GET / - Main application info",
-                "GET /health - Health check", 
+                "GET /health - Health check",
                 "GET /api/message - This endpoint"
             ]
         }
@@ -53,5 +58,6 @@ if __name__ == '__main__':
     print("   • GET / - Main application info")
     print("   • GET /health - Health check")
     print("   • GET /api/message - Static message API")
-    
-    app.run(host='0.0.0.0', port=5000, debug=True)
+
+    port = int(os.environ.get("APP_PORT", 8080))
+    app.run(host='0.0.0.0', port=port, debug=True)
