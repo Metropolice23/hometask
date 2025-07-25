@@ -1,10 +1,17 @@
 
 # This file contains the Terraform configuration for an AWS EC2 instance.
 
+# Passing public key to AWS account
+resource "aws_key_pair" "uploaded_key" {
+  key_name   = local.ssh_key_name
+  public_key = file(local.public_ssh_key)
+}
+
 # EC2 instance resource definition
 resource "aws_instance" "web" {
   ami           = local.ami_id
   instance_type = local.instance_type
+  key_name      = aws_key_pair.uploaded_key.key_name
   security_groups = [aws_security_group.web_sg.name]
 
   # filepath: /Users/omrishur/hometask/infra/ec2.tf
@@ -15,7 +22,7 @@ resource "aws_instance" "web" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file(local.ssh_private_key_path)
+      private_key = file(local.private_ssh_key)
       host        = self.public_ip
     }
   }
@@ -41,12 +48,10 @@ resource "aws_instance" "web" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file(local.ssh_private_key_path)
+      private_key = file(local.private_ssh_key)
       host        = self.public_ip
     }
   }
 
-  tags = {
-    Name = "simple-web"
-  }
+  tags = local.tags
 }
