@@ -26,4 +26,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simple-app:${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simple-app:0.0.${{ github.run_number }}
