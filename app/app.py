@@ -11,7 +11,7 @@ load_dotenv()
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[logging.FileHandler("tmp/app.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("app/logs/app.log"), logging.StreamHandler()],
 )
 
 # Create Flask app

@@ -21,3 +21,21 @@ variable "docker_tag" {
   type        = string
   default     = "latest"
 }
+
+variable "app_logs_path" {
+  description = "The path to the application logs directory"
+  type        = string
+  default     = "app/logs"
+}
+
+variable "ec2_logs_path" {
+  description = "The path to the EC2 instance logs directory"
+  type        = string
+  default     = "/var/log/flask-app"
+}
+
+variable "app_env_file_path" {
+  description = "The path to the environment variables file for the Flask app"
+  type        = string
+  default     = "/opt/flask-app.env"
+}

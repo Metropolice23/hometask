@@ -31,10 +31,10 @@ resource "aws_instance" "web" {
       "sudo apt-get update -y",
       "sudo apt-get install -y docker-ce",
       # set the environment variables file for the app-image
-      "sudo mv /tmp/flask-app.env /opt/flask-app.env",
-      "sudo chmod 644 /opt/flask-app.env",
+      "sudo mv /tmp/flask-app.env ${var.app_env_file_path}",
+      "sudo chmod 644 ${var.app_env_file_path}",
       # run the Docker container with the app-image
-      "sudo docker run --env-file /opt/flask-app.env -d -p 80:${var.app_port} ${var.docker_image}:${var.docker_tag}"
+      "sudo docker run --env-file ${var.app_env_file_path} -d -p 80:${var.app_port}  -v ${var.ec2_logs_path}:/${var.app_logs_path}  ${var.docker_image}:${var.docker_tag}"
     ]
 
     # Connection details for the remote execution
