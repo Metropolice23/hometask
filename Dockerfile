@@ -3,11 +3,11 @@ FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
-# Copy the requirements file into the container and install dependencies
-COPY requirements.txt .
+
+# Copy the requirements file into the container
 RUN pip install --no-cache-dir -r requirements.txt
-# Copy the the application code into the container
-COPY app.py .
+# Copy the the application code directory into the container
+COPY app/ app/
 # Define port exposed by the container
 EXPOSE 8080
 
