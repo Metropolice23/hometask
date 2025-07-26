@@ -65,6 +65,17 @@ This project demonstrates a fully automated deployment of a minimal Python (Flas
 
 ---
 
+## Health Checks
+
+This chart configures Kubernetes liveness and readiness probes to use the `/health` endpoint exposed by the Flask application. When deployed, Kubernetes will periodically call `/health` on each pod to verify that the application is running and ready to serve traffic.
+
+- **Liveness Probe:** Ensures the container is healthy and restarts it if the `/health` endpoint does not return a successful response.
+- **Readiness Probe:** Ensures the pod is ready to receive traffic only when the `/health` endpoint returns a successful response.
+
+You can customize the probe settings in your `values.yaml` file
+
+---
+
 ## Assumptions & Decisions
 
 - The deployment targets Ubuntu 22.04 LTS on AWS EC2.
